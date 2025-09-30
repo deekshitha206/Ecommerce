@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart{% endblock %}
+{% block content %}
+<h2>Your Cart</h2>
+{% if not products %}
+  <p>Your cart is empty.</p>
+  <a href="{{ url_for('index') }}" class="btn btn-primary">Back to shop</a>
+{% else %}
+  <form method="POST" action="{{ url_for('update_cart') }}">
+    <table class="table">
+      <thead><tr><th>Product</th><th>Quantity</th><th>Price</th></tr></thead>
+      <tbody>
+        {% for product in products %}
+          {% set qty = cart[product.id|string] %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>
+            <input type="number" name="qty_{{ product.id }}" value="{{ qty }}" min="0" class="form-control w-25">
+          </td>
+          <td>₹{{ '%.2f'|format(product.price * qty) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h4>Total: ₹{{ '%.2f'|format(total) }}</h4>
+    <button type="submit" class="btn btn-secondary me-2">Update Cart</button>
+    <a href="{{ url_for('checkout') }}" class="btn btn-primary">Checkout</a>
+  </form>
+{% endif %}
+{% endblock %}
