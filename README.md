@@ -27,6 +27,4 @@ feat(cart): add session-based cart and update flow
 feat(checkout): checkout form and confirmation  
 docs: add README and screenshots
 
-## Screenshots
-Place screenshots in `static/images/screenshots/` and reference them here.
 
